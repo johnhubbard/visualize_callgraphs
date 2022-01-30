@@ -1,25 +1,23 @@
-# Created by John Hubbard, January, 2022
-#
-# Usage:
-#
-#       1) Create python scripts that generate .png files of the same name.
-#          For example, use Python's GraphViz: "import gv".
+# Usage: 
+#       1) Create .json files that describe connectivity between items, such as
+#          callers and callees of subroutines in a program that you're trying to
+#          understand (or document).
 #
 #       2) This Makefile does not need to be modified. It will pick up the
-#          *.py files and build and optionally (via "make d=1") display the
+#          *.json files and build and optionally (via "make d=1") display the
 #          corresponding *.png images.
-#
-#       3) Examples, assuming that you have follow_page.py:
-#
-#       make
-#       make d=1              # Display the resulting .png image in a browser
-#       make follow_page
-#       make follow_page.png  # Same result as previous
-#       make follow_page d=1
+# Examples:
+#	  make
+#	  make d=1              # Display the resulting .png image in a browser
+#	  make basic_example
+#	  make follow_page d=1
 
-SOURCES  := $(wildcard *.py)
-IMAGES   := $(patsubst %.py,%.png,$(SOURCES))
-DIAGRAMS := $(patsubst %.py,%,$(SOURCES))
+SOURCES  := $(wildcard *.json)
+IMAGES   := $(patsubst %.json,%.png,$(SOURCES))
+DIAGRAMS := $(patsubst %.json,%,$(SOURCES))
+
+# TODO: generate this from above data:
+SHORT_DIAGRAMS := example bio_release_pages follow_page
 
 d ?=
 DISPLAY_PROGRAM ?= firefox
@@ -36,12 +34,12 @@ endef
 
 $(foreach diagram,$(DIAGRAMS),$(eval $(call create-diagram-rules,$(diagram))))
 
-%.png: %.py
-	python3 $<
+%.png: generate_diagram.py %.json
+	python3 $^
 
 # The newer ("import graphviz") library leaves behind the $(DIAGRAMS) files,
 # in addition to the *.png IMAGES, so clean those up as well:
 clean:
 	rm $(IMAGES) $(DIAGRAMS)
 
-.PHONY: clean $(DIAGRAMS)
+.PHONY: clean $(DIAGRAMS) $(SHORT_DIAGRAMS)

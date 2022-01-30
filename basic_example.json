@@ -1,0 +1,19 @@
+{
+    "items": [
+        {"name": "example",
+		 "parents": [
+			"parent_1", "parent_2", "yet another ancestor"
+		  ],
+		 "children": [
+			"child_a",
+			"child_b"
+		  ]
+		},
+		{ "name": "example", "color": "yellow" },
+		{ "name": "child_a", "child": "grandchild_of_example" },
+		{ "name": "parent_1", "parent": "top level", "color": "green" },
+		{ "name": "top level", "child": "example" },
+		{ "name": "top level", "child": "parent_2" }
+	]
+}
+
