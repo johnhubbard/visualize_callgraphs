@@ -1,4 +1,6 @@
-# Usage: 
+# Created by John Hubbard, January, 2022
+#
+# Usage:
 #       1) Create .json files that describe connectivity between items, such as
 #          callers and callees of subroutines in a program that you're trying to
 #          understand (or document).

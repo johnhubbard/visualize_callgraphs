@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+# Created by John Hubbard, Jan, 2022
 #
 # Creates a .png image that shows call paths.
 #
 # Usage: generate_diagram.py <input-file.json>
 #
-# See example.json for supported key words and their use.
+# See basic_example.json and the README.md, for supported key words and their
+# use.
 #
 # See https://graphviz.readthedocs.io/en/stable/examples.html
 #     https://www.w3schools.com/colors/colors_hexadecimal.asp
@@ -33,34 +35,23 @@ def set_color(node, color):
 f = open(json_filename)
 data = json.load(f)
 
-# TODO: check for existence instead of catching exceptions, duh.
 for item in data["items"]:
-    try:
+    if "child" in item:
         connect(item["name"], item["child"])
-    except Exception as e:
-        pass
 
-    try:
-        connect(item["parent"], item["name"])
-    except Exception as e:
-        pass
-
-    try:
-        for parent in item["parents"]:
-            connect(parent, item["name"])
-    except Exception as e:
-        pass
-
-    try:
+    if "children" in item:
         for child in item["children"]:
             connect(item["name"], child)
-    except Exception as e:
-        pass
 
-    try:
+    if "parent" in item:
+        connect(item["parent"], item["name"])
+
+    if "parents" in item:
+        for parent in item["parents"]:
+            connect(parent, item["name"])
+
+    if "color" in item:
         set_color(item["name"], item["color"])
-    except Exception as e:
-        pass
 
 g.render()
 
