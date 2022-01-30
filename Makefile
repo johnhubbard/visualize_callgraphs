@@ -16,15 +16,12 @@ SOURCES  := $(wildcard *.json)
 IMAGES   := $(patsubst %.json,%.png,$(SOURCES))
 DIAGRAMS := $(patsubst %.json,%,$(SOURCES))
 
-# TODO: generate this from above data:
-SHORT_DIAGRAMS := example bio_release_pages follow_page
-
 d ?=
 DISPLAY_PROGRAM ?= firefox
 
 all: $(DIAGRAMS)
 	
-# Allow typing the short form, such as "make bio_release_pages", by generating 
+# Allow typing the short form, such as "make basic_example", by generating
 # a rule for each diagram that translates each diagram name into its
 # corresponding image (file) name:
 define create-diagram-rules
@@ -42,4 +39,4 @@ $(foreach diagram,$(DIAGRAMS),$(eval $(call create-diagram-rules,$(diagram))))
 clean:
 	rm $(IMAGES) $(DIAGRAMS)
 
-.PHONY: clean $(DIAGRAMS) $(SHORT_DIAGRAMS)
+.PHONY: clean $(DIAGRAMS)
