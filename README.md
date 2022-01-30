@@ -34,6 +34,9 @@ A more extensive example, using some Linux kernel functions:
 
 	make follow_page d=1
 
+For more collections of call graphs, see also:
+https://github.com/johnhubbard/kernel_callgraphs
+
 Or, if you add your_diagram.json, the Makefile will pick it up automatically, so:
 
 	make your_diagram
