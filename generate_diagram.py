@@ -17,6 +17,11 @@ import sys
 import os
 from pathlib import Path
 
+if len(sys.argv) != 2:
+    print("Usage:\n\n    %s <input-filename>\n" % str(sys.argv[0]))
+    print("Example:\n\n    %s basic_example.json\n" % str(sys.argv[0]))
+    exit(1)
+
 # Use the input filename (changing .json to .png) for the output image file.
 # The .png is added by graphviz.Digraph(), not here:
 json_filename = str(sys.argv[1])
