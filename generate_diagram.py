@@ -28,7 +28,7 @@ json_filename = str(sys.argv[1])
 base_filename = os.path.splitext(json_filename)[0]
 
 g = graphviz.Digraph(filename=base_filename, format="png",
-                     node_attr={"color": "black", "fillcolor": "#b5b5ff",
+                     node_attr={"color": "black", "fillcolor": "lightblue",
                      "style": "filled"})
 
 def connect(from_node, to_node):
